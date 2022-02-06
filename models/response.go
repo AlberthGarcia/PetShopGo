@@ -16,7 +16,7 @@ type Response struct {
 }
 
 //Built a response default if all it's okay
-func ResponseDefault(rw http.ResponseWriter) Response {
+func responseDefault(rw http.ResponseWriter) Response {
 	return Response{
 		Status:      http.StatusOK,
 		resWriter:   rw,
@@ -24,8 +24,8 @@ func ResponseDefault(rw http.ResponseWriter) Response {
 	}
 }
 
-//Modify the propierties to send a response struct
-func (resp *Response) ModifyResponse() {
+//method to Modify the propierties to send a response struct
+func (resp *Response) modifyResponse() {
 	//Changed the header for an type application/JSON
 	resp.resWriter.Header().Set("Content-type", resp.contentType)
 	//Write the status of the header
@@ -42,8 +42,33 @@ func (resp *Response) ModifyResponse() {
 }
 
 //Send the response with all struct
-func SendResponse(rw http.ResponseWriter, data interface{}) {
-	response := ResponseDefault(rw)
+func SendResponse(rw http.ResponseWriter, data interface{}, message string) {
+	response := responseDefault(rw)
 	response.Data = data
-	response.ModifyResponse()
+	response.Message = message
+	response.modifyResponse()
+}
+
+//method to modify the status if there's an error
+func (resp *Response) notFound() {
+	resp.Status = http.StatusNotFound
+	resp.Message = "Request fail, not found"
+}
+
+func SendNotFound(rw http.ResponseWriter) {
+	response := responseDefault(rw)
+	response.notFound()
+	response.modifyResponse()
+}
+
+//method to modify the status if there's an error
+func (resp *Response) unproccesableEntity() {
+	resp.Status = http.StatusUnprocessableEntity
+	resp.Message = "Request fail, unprocessable entity"
+}
+
+func SendUnprocessableEntity(rw http.ResponseWriter) {
+	response := responseDefault(rw)
+	response.unproccesableEntity()
+	response.modifyResponse()
 }

@@ -36,7 +36,6 @@ func (cat *Category) InsertCategory() {
 		panic(err)
 	} else {
 		cat.IdCategory, _ = result.LastInsertId()
-		fmt.Println("Registro insertado")
 	}
 }
 
@@ -89,6 +88,7 @@ func (cat *Category) DeleteCategoryById() {
 	}
 }
 
+//Method to update a category
 func (cat *Category) UpdateCategory() {
 	sql := "UPDATE categories SET nameCategory=? where idCategory=?"
 	if _, err := db.Exec(sql, cat.NameCategory, cat.IdCategory); err != nil {
@@ -98,6 +98,7 @@ func (cat *Category) UpdateCategory() {
 	}
 }
 
+//method to save or update a category, depence the ID
 func (cat *Category) Save() {
 	if cat.IdCategory == 0 {
 		cat.InsertCategory()

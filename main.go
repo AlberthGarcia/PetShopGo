@@ -11,10 +11,10 @@ import (
 func main() {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/api/getCategories/", handlers.GetCategories).Methods("GET")
-	mux.HandleFunc("/api/getCategory/{id:[0-9]+}", nil).Methods("GET")
-	mux.HandleFunc("/api/createCategory/", nil).Methods("POST")
-	mux.HandleFunc("/api/deleteCategory/{id:[0-9]+}", nil).Methods("Delete")
-	mux.HandleFunc("/api/updateCategory/{id:[0-9]+}", nil).Methods("PUT")
+	mux.HandleFunc("/api/getCategory/{id:[0-9]+}", handlers.GetCategoryById).Methods("GET")
+	mux.HandleFunc("/api/createCategory/", handlers.CreateCategory).Methods("POST")
+	mux.HandleFunc("/api/deleteCategory/{id:[0-9]+}", handlers.DeleteCategory).Methods("Delete")
+	mux.HandleFunc("/api/updateCategory/{id:[0-9]+}", handlers.UpdateCategory).Methods("PUT")
 
 	log.Fatal(http.ListenAndServe(":3000", mux))
 }
