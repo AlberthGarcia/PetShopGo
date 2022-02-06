@@ -11,6 +11,6 @@ var SchemaProducts string = `
 	create table products(
 		idProduct int(11) unsigned not null primary key auto_increment,
 		nameProduct varchar(150) not null,
-		category int(11) not null,
 		existence int(11) not null,
-		current_data timestamp default current_timestamp);`
+		current_data timestamp default current_timestamp,
+		idCategory int(11) unsigned not null);`

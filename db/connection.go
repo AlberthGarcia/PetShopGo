@@ -36,8 +36,8 @@ func Close() {
 }
 
 //func to create a table
-func CreateTable(tableName string) {
-	if _, err := Exec(tableName); err != nil {
+func CreateTable(schemaTable string) {
+	if _, err := Exec(schemaTable); err != nil {
 		panic(err)
 	} else {
 		fmt.Println("Table created")
